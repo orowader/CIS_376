@@ -43,6 +43,10 @@ function email() {
 
 	jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
 	
+	result.textContent = JSON.stringify(jsarray); 
+	
+	/*
+	
 	char1.textContent = jsarray[18]; 
 	char2.textContent = jsarray[19]; 
 	char3.textContent = jsarray[20]; 
@@ -89,6 +93,8 @@ function email() {
 	result.textContent = jsarray[24]; 
 	
 	
+	
+	
 	Email.send({
 		Host : "smtp.gmail.com",
 		Username : "dpdemailalerts@gmail.com",
@@ -100,6 +106,7 @@ function email() {
     }).then(
       message => alert(message)
     );
+	*/
 	
 }
 </script>

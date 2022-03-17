@@ -51,24 +51,15 @@ function isClass() {
   
   
   //get values to store in array for results later 
-  jsarray[0] = document.getElementsByName('q1').value;
-  jsarray[1] = document.getElementsByName('q2').value;
-  jsarray[2] = document.getElementsByName('q3').value;
-  jsarray[3] = document.getElementsByName('q4').value;
-  jsarray[4] = document.getElementsByName('q5').value;
-  jsarray[5] = document.getElementsByName('q6').value;
-  jsarray[6] = document.getElementsByName('q7').value;
-  jsarray[7] = document.getElementsByName('q8').value;
-  jsarray[8] = document.getElementsByName('q9').value;
-  jsarray[9] = document.getElementsByName('q10').value;
-  jsarray[10] = document.getElementsByName('q11').value;
-  jsarray[11] = document.getElementsByName('q12').value;
-  jsarray[12] = document.getElementsByName('q13').value;
-  jsarray[13] = document.getElementsByName('q14').value;
-  jsarray[14] = document.getElementsByName('q15').value;
-  jsarray[15] = document.getElementsByName('q16').value;
-  jsarray[16] = document.getElementsByName('q17').value;
-  jsarray[17] = document.getElementsByName('q18').value;
+  
+  for (var z = 0; z < q.length; z++) {
+	  for (var w = 0; w < 3; w++) {
+		  
+		  if (q[z][w].checked) {
+			  jsarray[z] = q[z][w].value; 
+		  }
+	  }
+  }
   jsarray[19] = '';
   jsarray[20] = '';
   jsarray[21] = '';

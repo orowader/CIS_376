@@ -37,6 +37,7 @@
 function allRes() {
 	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
 	
+	
 
 	for (var i = 0; i < allEnters.length; i++) {
 	
@@ -51,7 +52,7 @@ function allRes() {
 		
 		body += "<br><br>Results: "; 
 		
-		
+		body += "<br>" + String(allEnters[i][24]); 
 		
 			if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
 				body +="<br>" + String(allEnters[i][18]); 
@@ -73,7 +74,7 @@ function allRes() {
 			}
 		
 		
-			body +="<br>" + String(allEnters[i][24]) + "</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
+			body +="</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
 			
 			document.body.innerHTML = document.body.innerHTML + body; 
 		
