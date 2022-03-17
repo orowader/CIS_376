@@ -1,0 +1,444 @@
+function isClass() {
+  //clarify where we are putting the result text. 
+  var result = document.getElementById('result');
+
+  //get name of the class 
+  var class_name = document.getElementsByName('classname');
+
+  //reset all possible tool created texts 
+  char1.textContent = ""; 
+  char2.textContent = ""; 
+  char3.textContent = ""; 
+  char4.textContent = ""; 
+  char5.textContent = ""; 
+  char6.textContent = "";
+  result.textContent = " "; 
+
+  var points = 0;
+  var naCount = 0;
+  var q = new Array(18)
+  var jsarray = new Array(24) 
+  var char = new Array(false, false, false, false, false, false, false);
+  var flag = false;
+
+ //if class isn't given a name by the user, then we assign it a default name 
+  if (class_name[0].value == "") {
+    class_name[0].value = "your class";
+  }
+  
+  
+  jsarray = []
+
+ //get all user answers for the questions
+  q[0] = document.getElementsByName('q1');
+  q[1] = document.getElementsByName('q2');
+  q[2] = document.getElementsByName('q3');
+  q[3] = document.getElementsByName('q4');
+  q[4] = document.getElementsByName('q5');
+  q[5] = document.getElementsByName('q6');
+  q[6] = document.getElementsByName('q7');
+  q[7] = document.getElementsByName('q8');
+  q[8] = document.getElementsByName('q9');
+  q[9] = document.getElementsByName('q10');
+  q[10] = document.getElementsByName('q11');
+  q[11] = document.getElementsByName('q12');
+  q[12] = document.getElementsByName('q13');
+  q[13] = document.getElementsByName('q14');
+  q[14] = document.getElementsByName('q15');
+  q[15] = document.getElementsByName('q16');
+  q[16] = document.getElementsByName('q17');
+  q[17] = document.getElementsByName('q18');
+  
+  
+  //get values to store in array for results later 
+  jsarray[0] = document.getElementsByName('q1').value;
+  jsarray[1] = document.getElementsByName('q2').value;
+  jsarray[2] = document.getElementsByName('q3').value;
+  jsarray[3] = document.getElementsByName('q4').value;
+  jsarray[4] = document.getElementsByName('q5').value;
+  jsarray[5] = document.getElementsByName('q6').value;
+  jsarray[6] = document.getElementsByName('q7').value;
+  jsarray[7] = document.getElementsByName('q8').value;
+  jsarray[8] = document.getElementsByName('q9').value;
+  jsarray[9] = document.getElementsByName('q10').value;
+  jsarray[10] = document.getElementsByName('q11').value;
+  jsarray[11] = document.getElementsByName('q12').value;
+  jsarray[12] = document.getElementsByName('q13').value;
+  jsarray[13] = document.getElementsByName('q14').value;
+  jsarray[14] = document.getElementsByName('q15').value;
+  jsarray[15] = document.getElementsByName('q16').value;
+  jsarray[16] = document.getElementsByName('q17').value;
+  jsarray[17] = document.getElementsByName('q18').value;
+  jsarray[19] = '';
+  jsarray[20] = '';
+  jsarray[21] = '';
+  jsarray[22] = '';
+  jsarray[23] = '';
+  jsarray[24] = '';
+
+  /*First question is seperate from the rest 
+  since if this question is false the class fails anyways,
+  saves computational power to not check the rest of the answers*/
+  if (q[0][0].checked || q[0][2].checked) {
+    char[0] = true;
+  }
+  else {
+    char[0] = false;
+  }
+
+ //only if q1 isn't false 
+  if (char[0] == true) {
+
+    /*
+    *******************************************************************************
+    check the answers for each question and increment 
+    variable points by a weighted amount based on the answer. If variable points is 
+    still a positive value after all answers have been checked and points has been incremented
+    or decremented appropriately, then it passes the given characteristic.
+    ********************************************************************************
+
+    ********************************************************************************
+    some questions have heavy weights if answered no (ex. a no is a -100 decrement to the 
+    points variable) because they are critical to be yes. The yes increment could be smaller for the same question though (ex. +5) to allow for the characteristic to still fail if corresponding
+    questions are both answered no.
+    ********************************************************************************
+
+    ********************************************************************************
+    N/A answers will either be treated as a negative to the point variable or as a +0 
+    depending on the contextual importance of not knowing the answer to a prticular question.
+    *********************************************************************************
+    */ 
+    for (var i = 1; i <= 3; ++i) { //for q2-4
+      if (q[i][0].checked)
+        if (i == 1) {       //q2 yes is selected
+          points += 5;
+        }
+        else if (i == 2) {  //q3 yes is selected
+          points += 1;
+        }
+        else {              //q4 yes is selected
+          points += 1;     
+        }
+      else if (q[i][1].checked)
+        if (i == 1) {      //q2 no is selected (CRITICAL)
+          points -= 100;
+        }
+        else if (i == 2) { //q3 no is selected
+          points -= 3;
+        }
+        else {             //q4 no is selected
+          points -= 3; 
+        }
+      else if (q[i][2].checked)
+        if (i == 1) {
+          points -= 100;   //q2 N/A is selected (CRITICAL)
+          naCount++;
+        }
+        else if (i == 2) { //q3 N/A is selected
+          points += 0;
+          naCount++;
+        }
+        else {             //q4 N/A is selected
+          points += 0;
+          naCount++;
+        }
+       //A Question was left unanswered raises a flag, so the program will prompt
+       //the user to fill out any empty q's before it calculates an answer 
+      else { 
+        flag = true;
+      }
+    }
+
+    //if points is positive it passes the characteristic test 
+    if (points >= 0) {
+      char[1] = true;
+    }
+
+    //reset points so it can be reused during the other characteristic tests
+    points = 0;
+
+    /*******************************************************************************
+      ALL FUTURE CHARACTERISTICS ARE DETERMINED THE SAME WAY SO THEY WILL NOT BE 
+      COMMENTED
+     *******************************************************************************/
+
+    for (var i = 4; i <= 6; ++i) { //for q5-7
+      if (q[i][0].checked)
+        if (i == 4) {
+          points += 5;
+        }
+        else if (i == 5) {
+          points += 2;
+        }
+        else {
+          points += 1;
+        }
+      else if (q[i][1].checked)
+        if (i == 4) {
+          points -= 100;
+        }
+        else if (i == 5) {
+          points -= 6;
+        }
+        else {
+          points -= 1;
+        }
+      else if (q[i][2].checked)
+        if (i == 4) {
+          points -= 100;
+          naCount++;
+        }
+        else if (i == 5) {
+          points -= 4;
+          naCount++;
+        }
+        else {
+          points += 0;
+          naCount++;
+        }
+      else {  //A Question was left unanswered
+        flag = true;
+      }
+    }
+
+    if (points >= 0) {
+      char[2] = true;
+    }
+    points = 0;
+
+    for (var i = 7; i <= 9; ++i) { //for q8-10
+      if (q[i][0].checked)
+        if (i == 7) {
+          points += 5;
+        }
+        else if (i == 8) {
+          points -= 1;
+        }
+        else {
+          points -= 100
+        }
+      else if (q[i][1].checked)
+        if (i == 7) {
+          points -= 100;
+        }
+        else if (i == 8) {
+          points += 0;
+        }
+        else {
+          points += 1;
+        }
+      else if (q[i][2].checked)
+        if (i == 7) {
+          points -= 1;
+          naCount++;
+        }
+        else if (i == 8) {
+          points += 0;
+          naCount++;
+        }
+        else {
+          points += 0;
+          naCount++;
+        }
+      else {  //A Question was left unanswered
+        flag = true;
+      }
+    }
+
+    if (points >= 0) {
+      char[3] = true;
+    }
+    points = 0;
+
+    for (var i = 10; i <= 12; ++i) { //for q11-13
+      if (q[i][0].checked)
+        if (i == 10) {
+          points += 5;
+        }
+        else if (i == 11) {
+          points += 2;
+        }
+        else {
+          points += 5;
+        }
+      else if (q[i][1].checked)
+        if (i == 10) {
+          points -= 100;
+        }
+        else if (i == 11) {
+          points -= 1;
+        }
+        else {
+          points -= 100;
+        }
+      else if (q[i][2].checked)
+        if (i == 10) {
+          points -= 1;
+          naCount++;
+        }
+        else if (i == 11) {
+          points += 0;
+          naCount++;
+        }
+        else {
+          points += 0;
+          naCount++;
+        }
+      else {  //A Question was left unanswered
+        flag = true;
+      }
+    }
+
+    if (points >= 0) {
+      char[4] = true;
+    }
+    points = 0;
+
+    for (var i = 13; i <= 15; ++i) { //for q14-16
+      if (q[i][0].checked)
+        if (i == 13) {
+          points += 5;
+        }
+        else if (i == 14) {
+          points += 1;
+        }
+        else {
+          points += 5;
+        }
+      else if (q[i][1].checked)
+        if (i == 13) {
+          points -= 100;
+        }
+        else if (i == 14) {
+          points -= 1;
+        }
+        else {
+          points -= 100;
+        }
+      else if (q[i][2].checked)
+        if (i == 13) {
+          points -= 1;
+          naCount++;
+        }
+        else if (i == 14) {
+          points += 0;
+          naCount++;
+        }
+        else {
+          points += 0
+          naCount++;
+        }
+      else {  //A Question was left unanswered
+        flag = true;
+      }
+    }
+
+    if (points >= 0) {
+      char[5] = true;
+    }
+    points = 0;
+
+    for (var i = 16; i <= 17; ++i) { //for q17-18
+      if (q[i][0].checked)
+        if (i == 16) {
+          points += 100;
+        }
+        else {
+          points += 100;
+        }
+      else if (q[i][1].checked)
+        if (i == 16) {
+          points -= 100;
+        }
+        else {
+          points -= 100;
+        }
+      else if (q[i][2].checked)
+        if (i == 16) {
+          points -= 1;
+          naCount++;
+        }
+        else {
+          points -= 1;
+          naCount++;
+        }
+      else {  //A Question was left unanswered
+        flag = true;
+      }
+    }
+
+    if (points >= 0) {
+      char[6] = true;
+    }
+    points = 0;
+
+    //if a question was left blank 
+    if (flag) {
+      result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
+    }
+
+    //if too many questions were answered N/A we let the user know
+    //we can't make a reliable determination on their class 
+    else if (naCount >= 8) {
+      result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
+    }
+
+    //otherwise we either print the class passed
+    //or we print that it failed and which charateristics it failed which led to it failing 
+    else {
+      var failCount = 0;
+      for (var j = 1; j <= 6; ++j) {
+        if (char[j] == false) {
+          ++failCount;
+        }
+      }
+      if (failCount >= 2 || char[3] == false || char[6] == false) {
+        result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
+
+          if (char[1] == false) {
+            char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
+			jsarray[18] = char1.textContent
+          }
+          if (char[2] == false) {
+            char2.textContent = class_name[0].value + " failed characteristic 2 because it didn't have important operations for the system."
+			jsarray[19] = char2.textContent
+          }
+          if (char[3] == false) {
+            char3.textContent = class_name[0].value + " failed characteristic 3 because this class is better represented as an attribute(s) of another class and should not stand on its own. Failure of this characteristic is critical and leads to failure of the entire class."
+			jsarray[20] = char3.textContent
+		  } 
+          if (char[4] == false) {
+            char4.textContent = class_name[0].value + " failed characteristic 4 because it didn't share enough attributes between instances of the class."
+			jsarray[21] = char4.textContent
+		  }
+         if (char[5] == false) {
+            char5.textContent = class_name[0].value + " failed characteristic 5 because it didn't share enough operations between instances of the class."
+			jsarray[22] = char5.textContent
+		  }
+          if (char[6]== false) {
+            char6.textContent = class_name[0].value + " failed characteristic 6 because the class does not consume or produce information essential to the system which is essential for a class to do. Failure of this characteristic is critical and leads to failure of the entire class.";
+			jsarray[23] = char6.textContent
+		  }
+      }
+      else {
+        result.textContent = "Congratulations " + class_name[0].value + " is a Class!"
+      }
+    }
+  }
+
+  //if the first question was left blank we let the user know
+  else if (q[0][0].checked != true && q[0][1].checked != true && q[0][2].checked != true) {
+    result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
+  }
+
+  //if the first question was set as 'no' it automatically fai
+  else {
+    result.textContent = class_name[0].value + " failed because the name was chosen to not be a noun. In order for a class to be valid the name of it must be a noun. Not naming the class a noun is a critical issue/error, and therefore no other attributes were checked. ";
+  }
+  
+  jsarray[24] = result.textContent;
+  
+  sessionStorage.setItem("jsarray", JSON.stringify(jsarray)); 
+  window.location.href = 'results.html'; 
+
+}

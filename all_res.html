@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="main.css">
+	<script type="text/javascript" src="res_script.js">
+	</script>
+	<script type="text/javascript" src="return_script.js">
+	</script>
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<title>Class Identifier Tiny Tool</title>
+</head>
+
+<body onload = "allRes()">
+	<h1>All Session Results</h1>
+        <table name = "tb">
+          <tr>
+            <th style="width:900px; text-align: center">Results</th>
+          </tr> 
+        </table>
+        <br>
+        <br>
+        <p id = "result"style="color:antiquewhite"></p>
+        <p id = "char1" style="color:antiquewhite"></p>
+        <p id = "char2" style="color:antiquewhite"></p>
+        <p id = "char3" style="color:antiquewhite"></p>
+        <p id = "char4" style="color:antiquewhite"></p>
+        <p id = "char5" style="color:antiquewhite"></p>
+        <p id = "char6" style="color:antiquewhite"></p>
+		<br>
+        <button type="button" style="color:black" onclick="return_page()">Return to Form</button><br><br>
+		<p id = "email_results" style="color:antiquewhite"></p>
+    </body>
+</html>
+
+<script>
+function allRes() {
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+	
+
+	for (var i = 0; i < allEnters.length; i++) {
+	
+		
+		var body = '<div id = ' + String(i) + '>Answers for attempt ' + String(i + 1) + ': '; 
+		
+		for (var j = 0; j < 18; j++) {
+			
+			
+			body += "<br><br>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]); 
+		}
+		
+		body += "<br><br>Results: "; 
+		
+		
+		
+			if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
+				body +="<br>" + String(allEnters[i][18]); 
+			}
+			if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
+				body +="<br>" + String(allEnters[i][19]); 
+			}
+			if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
+				body +="<br>" + String(allEnters[i][20]); 
+			}
+			if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
+				body +="<br>" + String(allEnters[i][21]); 
+			}
+			if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
+				body +="<br>" + String(allEnters[i][22]); 
+			}
+			if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
+				body +="<br>" + String(allEnters[i][23]); 
+			}
+		
+		
+			body +="<br>" + String(allEnters[i][24]) + "</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
+			
+			document.body.innerHTML = document.body.innerHTML + body; 
+		
+	
+	}
+	
+}
+</script>
+
+<script>
+function email(index) {
+
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+
+	jsarray = allEnters[index]; 
+	
+	char1.textContent = jsarray[18]; 
+	char2.textContent = jsarray[19]; 
+	char3.textContent = jsarray[20]; 
+	char4.textContent = jsarray[21]; 
+	char5.textContent = jsarray[22]; 
+	char6.textContent = jsarray[23]; 
+	result.textContent = jsarray[24]; 
+	
+	var body = 'Answers: '; 
+	
+	for (var i = 0; i < 18; i++) {
+		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
+	}
+	
+	body += "<br><br>Results: "; 
+	
+	
+	
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char1.textContent); 
+		}
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char2.textContent); 
+		}
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char3.textContent); 
+		}
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char4.textContent); 
+		}
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char5.textContent); 
+		}
+		if (String(char1.textContent) != "") {
+			body +="<br>" + String(char6.textContent); 
+		}
+	
+	
+		body +="<br>" + String(result.textContent); 
+	
+	//get name of the email
+	var email_name = document.getElementsByName('email');
+	
+	result.textContent = jsarray[24]; 
+	
+	
+	Email.send({
+		Host : "smtp.gmail.com",
+		Username : "dpdemailalerts@gmail.com",
+		Password : "classIDpass",
+		To : email_name[0].value,
+		From : "dpdemailalerts@gmail.com",
+		Subject : "Results",
+		Body : body
+    }).then(
+      message => alert(message)
+    );
+	
+}
+</script>

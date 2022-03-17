@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="main.css">
+	<script type="text/javascript" src="script.js">
+
+	</script>
+	<title>Class Identifier Tiny Tool</title>
+</head>
+
+<body>
+	<h1>Welcome to the Class Identifier Tiny Tool!</h1>
+	<h2>Created by: Owen Rowader, Chevy Pawlik, Nathan Lipski, Michael Berry</h2><br>
+        <form name="name" style="color:antiquewhite">Input your class name:<input style="margin-left: 90px" type="text" name= "classname"></form><br>
+        <table name = "tb">
+          <tr>
+            <th style="width:900px; text-align: center">If you are unsure of a question, mouse over the "�" in the help column for more information</th>
+          </tr> 
+        </table>
+        <table name="table">
+            <tr>
+                <th style="width:700px">Question:</th>
+                <th>Yes</th>
+                <th>No</th>
+                <th>N/A</th>
+                <th>Help</th>           
+            </tr>
+            <tr>
+                <td>1.) Is the class name a noun?</td>
+                <td><input type="radio" id="yes"name="q1" value="yes"></td>
+                <td><input type="radio" id="no" name="q1" value="no"></td>
+                <td><input type="radio" id="na" name="q1" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Is the name of the class a noun?(Person, Place, Thing).</span></div></td>
+            </tr>
+            <tr>
+                <td>2.) Will the class have attributes?</td>
+                <td><input type="radio" id="yes" name="q2" value="yes"></td>
+                <td><input type="radio" id="no" name="q2" value="no"></td>
+                <td><input type="radio" id="na" name="q2" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does the class have any attributes? Such as size, width, length, etc.</span></div></td>
+            </tr>
+            <tr>
+                <td>3.) If yes, will the class have its own unique attributes?</td>
+                <td><input type="radio" id="yes" name="q3" value="yes"></td>
+                <td><input type="radio" id="no" name="q3" value="no"></td>
+                <td><input type="radio" id="na" name="q3" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does those attributes span ONLY to that class?</span></div></td>
+            </tr>
+            <tr>
+                <td>4.) If the class has its own attributes, will they need to be remembered in order for your software to function?</td>
+                <td><input type="radio" id="yes" name="q4" value="yes"></td>
+                <td><input type="radio" id="no" name="q4" value="no"></td>
+                <td><input type="radio" id="na" name="q4" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Will they be stored within the class to be used later by the system? Or does the system not require the information stored by your class?</span></div></td>                
+            </tr>
+            <tr>
+                <td>5.) If the class has its own attributes, does it have operations involving those attributes?</td>
+                <td><input type="radio" id="yes" name="q5" value="yes"></td>
+                <td><input type="radio" id="no" name="q5" value="no"></td>
+                <td><input type="radio" id="na" name="q5" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Are there functions within the class that will utilize those attributes?</span></div></td>
+            </tr>
+            <tr>
+                <td>6.) Are any operations changing the value of the attributes</td>
+                <td><input type="radio" id="yes" name="q6" value="yes"></td>
+                <td><input type="radio" id="no" name="q6" value="no"></td>
+                <td><input type="radio" id="na" name="q6" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Do the attributes stored within the class have their values changed by these operations?</span></div></td>
+            </tr>
+            <tr>
+                <td>7.) If yes, are all the attributes modifiable?</td>
+                <td><input type="radio" id="yes" name="q7" value="yes"></td>
+                <td><input type="radio" id="no" name="q7" value="no"></td>
+                <td><input type="radio" id="na" name="q7" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Are the attributes ALL not constant or final values?</span></div></td>
+            </tr>
+            <tr>
+                <td>8.) Is there more than one attribute within the class?</td>
+                <td><input type="radio" id="yes" name="q8" value="yes"></td>
+                <td><input type="radio" id="no" name="q8" value="no"></td>
+                <td><input type="radio" id="na" name="q8" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does the class contain 2 or more attributes within it?</span></div></td>
+            </tr>
+            <tr>
+                <td>9.) Could any of the attribute(s) of this class be better represented as of an attribute of another class? </td>
+                <td><input type="radio" id="yes" name="q9" value="yes"></td>
+                <td><input type="radio" id="no" name="q9" value="no"></td>
+                <td><input type="radio" id="na" name="q9" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Could an attribute within this class be used better within another class instead of being stored in this one?</span></div></td>
+            </tr>
+            <tr>
+                <td>10.) If there is more than one attribute, could they ALL be better represented as an attribute of another class? </td>
+                <td><input type="radio" id="yes" name="q10" value="yes"></td>
+                <td><input type="radio" id="no" name="q10" value="no"></td>
+                <td><input type="radio" id="na" name="q10" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Could ALL attributes within this class be used better within another class instead? Therefore rendering this class un-needed?</span></div></td>
+            </tr>
+            <tr>
+                <td>11.) Will each instance of this class have certain attributes shared?</td>
+                <td><input type="radio" id="yes" name="q11" value="yes"></td>
+                <td><input type="radio" id="no" name="q11" value="no"></td>
+                <td><input type="radio" id="na" name="q11" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Will instances of this class have the same attributes?</span></div></td>
+            </tr>
+            <tr>
+                <td>12.) Are there more than one common attributes present?</td>
+                <td><input type="radio" id="yes" name="q12" value="yes"></td>
+                <td><input type="radio" id="no" name="q12" value="no"></td>
+                <td><input type="radio" id="na" name="q12" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Do more than one of the attributes span to another instance of the class?</span></div></td>
+            </tr>
+            <tr>
+                <td>13.) If yes, does it apply to ALL instances of the class?</td>
+                <td><input type="radio" id="yes" name="q13" value="yes"></td>
+                <td><input type="radio" id="no" name="q13" value="no"></td>
+                <td><input type="radio" id="na" name="q13" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Every single instance of the class has the same attributes</span></div></td>
+            </tr>
+            <tr>
+                <td>14.) Will each instance of this class have certain operations shared?</td>
+                <td><input type="radio" id="yes" name="q14" value="yes"></td>
+                <td><input type="radio" id="no" name="q14" value="no"></td>
+                <td><input type="radio" id="na" name="q14" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Will another instance of this class utilize the function?</span></div></td>
+            </tr>
+            <tr>
+                <td>15.) Are there more than one common operation present?</td>
+                <td><input type="radio" id="yes" name="q15" value="yes"></td>
+                <td><input type="radio" id="no" name="q15" value="no"></td>
+                <td><input type="radio" id="na" name="q15" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does more than one operation span to other instances of the classe?</span></div></td>
+            </tr>
+            <tr>
+                <td>16.) If yes, does it apply to ALL instances of the class?</td>
+                <td><input type="radio" id="yes" name="q16" value="yes"></td>
+                <td><input type="radio" id="no" name="q16" value="no"></td>
+                <td><input type="radio" id="na" name="q16" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Every single instance of the class has the operations</span></div></td>
+            </tr>
+            <tr>
+                <td>17.) Does this class produce information essential to the operation of a solution for the system? </td>
+                <td><input type="radio" id="yes" name="q17" value="yes"></td>
+                <td><input type="radio" id="no" name="q17" value="no"></td>
+                <td><input type="radio" id="na" name="q17" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does the class output information that's absolutely necessary for the system to function?</span></div></td>
+            </tr>
+            <tr>
+                <td>18.) Does this class consume information essential to the operation of a solution for the system? </td>
+                <td><input type="radio" id="yes" name="q18" value="yes"></td>
+                <td><input type="radio" id="no" name="q18" value="no"></td>
+                <td><input type="radio" id="na" name="q18" value="N/A"></td>
+                <td><div class="tooltip" style="margin-left: 9px">�<span class="tooltiptext">Does the class take in information that's absolutely necessary for the system to function?</span></div></td>
+            </tr>
+        </table>
+        <br>
+        <button type="button" style="color:black" onclick="isClass()">Submit Answers!</button>
+        <br>
+        <div class="tooltip" style = "color:gray; font-size:12px"> How does it work? �<span class="infotiptext"> The Tiny-Tool focuses on the six characteristics for class inclusion highlighted on page 139 of the book: Software Engineering: A Practioner's Approach 9th Edition. These characteristics are: <br><br> 1: Retained Information (Q2-4)<br> 2: Needed Services (Q5-7) <br> 3: Multiple Attributes (Q8-10) <br> 4: Common Attributes (Q11-13) <br> 5: Common Operations (Q14-16) <br> 6: Essential Requirements (Q17-18) <br><br> If your potential class does not satisfy the majority of these requirements, or fails one ESSENTIAL requirement, then the Tiny-Tool will inform you of your class failing and why. Otherwise, the potential class will be identified by the tool as valid. </span></div>
+        <p id = "result"style="color:antiquewhite"></p>
+        <p id = "char1" style="color:antiquewhite"></p>
+        <p id = "char2" style="color:antiquewhite"></p>
+        <p id = "char3" style="color:antiquewhite"></p>
+        <p id = "char4" style="color:antiquewhite"></p>
+        <p id = "char5" style="color:antiquewhite"></p>
+        <p id = "char6" style="color:antiquewhite"></p>
+    </body>
+</html>
