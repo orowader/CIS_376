@@ -49,14 +49,32 @@ function isClass() {
   q[16] = document.getElementsByName('q17');
   q[17] = document.getElementsByName('q18');
   
+  jsarray[0] = 'Is the class name a noun?: ';
+  jsarray[1] = 'Will the class have attributes?: ';
+  jsarray[2] = 'If yes, will the class have its own unique attributes?: ';
+  jsarray[3] = 'If the class has its own attributes, will they need to be remembered in order for your software to function?: ';
+  jsarray[4] = 'If the class has its own attributes, does it have operations involving those attributes?: ';
+  jsarray[5] = 'Are any operations changing the value of the attributes?: ';
+  jsarray[6] = 'If yes, are all the attributes modifiable?: ';
+  jsarray[7] = 'Is there more than one attribute within the class?: ';
+  jsarray[8] = 'Could any of the attribute(s) of this class be better represented as of an attribute of another class?: ';
+  jsarray[9] = 'If there is more than one attribute, could they ALL be better represented as an attribute of another class?: ';
+  jsarray[10] = 'Will each instance of this class have certain attributes shared?: ';
+  jsarray[11] = 'Are there more than one common attributes present?: ';
+  jsarray[12] = 'If yes, does it apply to ALL instances of the class?: ';
+  jsarray[13] = 'Will each instance of this class have certain operations shared?: ';
+  jsarray[14] = 'Are there more than one common operation present?: ';
+  jsarray[15] = 'If yes, does it apply to ALL instances of the class?: ';
+  jsarray[16] = 'Does this class produce information essential to the operation of a solution for the system?: ';
+  jsarray[17] = 'Does this class consume information essential to the operation of a solution for the system?: ';
+  
   
   //get values to store in array for results later 
-  
   for (var z = 0; z < q.length; z++) {
 	  for (var w = 0; w < 3; w++) {
 		  
 		  if (q[z][w].checked) {
-			  jsarray[z] = q[z][w].value; 
+			  jsarray[z] += q[z][w].value; 
 		  }
 	  }
   }
@@ -429,6 +447,7 @@ function isClass() {
   
   jsarray[24] = result.textContent;
   
+  //store all results in a session variable and navigate to results page 
   sessionStorage.setItem("jsarray", JSON.stringify(jsarray)); 
   window.location.href = 'results.html'; 
 
