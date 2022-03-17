@@ -41,12 +41,11 @@
 <script>
 function email() {
 
+	//get our current result from the session variable 
 	jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
 	
-	result.textContent = JSON.stringify(jsarray); 
 	
-	/*
-	
+	//make sure the page is still set okay 
 	char1.textContent = jsarray[18]; 
 	char2.textContent = jsarray[19]; 
 	char3.textContent = jsarray[20]; 
@@ -55,15 +54,19 @@ function email() {
 	char6.textContent = jsarray[23]; 
 	result.textContent = jsarray[24]; 
 	
+	
+	//start forming the email body 
 	var body = 'Answers: '; 
 	
+	
+	//get the answer for every question 
 	for (var i = 0; i < 18; i++) {
 		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
 	}
 	
+	//get the results and explanation text 
 	body += "<br><br>Results: "; 
-	
-	
+	body +="<br>" + String(result.textContent); 
 	
 		if (String(char1.textContent) != "") {
 			body +="<br>" + String(char1.textContent); 
@@ -85,16 +88,18 @@ function email() {
 		}
 	
 	
-		body +="<br>" + String(result.textContent); 
+		
 	
 	//get name of the email
 	var email_name = document.getElementsByName('email');
 	
+	
+	//make sure results stay set 
 	result.textContent = jsarray[24]; 
 	
 	
 	
-	
+	//send email and give response 
 	Email.send({
 		Host : "smtp.gmail.com",
 		Username : "dpdemailalerts@gmail.com",
@@ -106,7 +111,7 @@ function email() {
     }).then(
       message => alert(message)
     );
-	*/
+	
 	
 }
 </script>

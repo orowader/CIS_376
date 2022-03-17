@@ -35,49 +35,65 @@
 
 <script>
 function allRes() {
+
+	//get history 
 	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
 	
+	if (allEnters != null)  {
 	
-
-	for (var i = 0; i < allEnters.length; i++) {
-	
+		//for all the submissions 
+		for (var i = 0; i < allEnters.length; i++) {
 		
-		var body = '<div id = ' + String(i) + '>Answers for attempt ' + String(i + 1) + ': '; 
+			
+			//form body to show history 
+			var body = '<div id = ' + String(i) + '>Answers for attempt ' + String(i + 1) + ': '; 
+			
+			//show answers to Q's 
+			for (var j = 0; j < 18; j++) {
+				
+				
+				body += "<br><br>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]); 
+			}
+			
+			//print the result text 
+			body += "<br><br>Results: "; 
+			
+			body += "<br>" + String(allEnters[i][24]); 
+			
+				if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
+					body +="<br>" + String(allEnters[i][18]); 
+				}
+				if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
+					body +="<br>" + String(allEnters[i][19]); 
+				}
+				if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
+					body +="<br>" + String(allEnters[i][20]); 
+				}
+				if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
+					body +="<br>" + String(allEnters[i][21]); 
+				}
+				if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
+					body +="<br>" + String(allEnters[i][22]); 
+				}
+				if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
+					body +="<br>" + String(allEnters[i][23]); 
+				}
+			
+				//add option to send this result from the history to email 
+				body +="</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
+				
+				//display on HTML 
+				document.body.innerHTML = document.body.innerHTML + body; 
+			
 		
-		for (var j = 0; j < 18; j++) {
-			
-			
-			body += "<br><br>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]); 
 		}
-		
-		body += "<br><br>Results: "; 
-		
-		body += "<br>" + String(allEnters[i][24]); 
-		
-			if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
-				body +="<br>" + String(allEnters[i][18]); 
-			}
-			if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
-				body +="<br>" + String(allEnters[i][19]); 
-			}
-			if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
-				body +="<br>" + String(allEnters[i][20]); 
-			}
-			if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
-				body +="<br>" + String(allEnters[i][21]); 
-			}
-			if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
-				body +="<br>" + String(allEnters[i][22]); 
-			}
-			if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
-				body +="<br>" + String(allEnters[i][23]); 
-			}
-		
-		
-			body +="</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
-			
-			document.body.innerHTML = document.body.innerHTML + body; 
-		
+	}
+	else {
+	
+		//form body to show history 
+		var body = "<h1> No Results</h1>";
+		//display on HTML 
+		document.body.innerHTML = document.body.innerHTML + body; 
 	
 	}
 	
@@ -87,56 +103,52 @@ function allRes() {
 <script>
 function email(index) {
 
+	//get history 
 	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
 
+	//get the submission the user chose to email 
 	jsarray = allEnters[index]; 
 	
-	char1.textContent = jsarray[18]; 
-	char2.textContent = jsarray[19]; 
-	char3.textContent = jsarray[20]; 
-	char4.textContent = jsarray[21]; 
-	char5.textContent = jsarray[22]; 
-	char6.textContent = jsarray[23]; 
-	result.textContent = jsarray[24]; 
-	
+	//start email body 
 	var body = 'Answers: '; 
 	
+	//get the answers to the Qs
 	for (var i = 0; i < 18; i++) {
 		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
 	}
 	
+	
+	//print the result text and eplanation 
 	body += "<br><br>Results: "; 
+	body +="<br>" + String(jsarray[24]); 
 	
 	
 	
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char1.textContent); 
+		if (String(jsarray[18]) != "") {
+			body +="<br>" + String(jsarray[18]); 
 		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char2.textContent); 
+		if (String(jsarray[19]) != "") {
+			body +="<br>" + String(jsarray[19]); 
 		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char3.textContent); 
+		if (String(jsarray[20]) != "") {
+			body +="<br>" + String(jsarray[20]); 
 		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char4.textContent); 
+		if (String(jsarray[21]) != "") {
+			body +="<br>" + String(jsarray[21]); 
 		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char5.textContent); 
+		if (String(jsarray[22]) != "") {
+			body +="<br>" + String(jsarray[22]); 
 		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char6.textContent); 
+		if (String(jsarray[23]) != "") {
+			body +="<br>" + String(jsarray[23]); 
 		}
 	
-	
-		body +="<br>" + String(result.textContent); 
 	
 	//get name of the email
 	var email_name = document.getElementsByName('email');
+
 	
-	result.textContent = jsarray[24]; 
-	
-	
+	//send email and response 
 	Email.send({
 		Host : "smtp.gmail.com",
 		Username : "dpdemailalerts@gmail.com",
