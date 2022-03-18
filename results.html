@@ -3,9 +3,8 @@
 
 <head>
 	<link rel="stylesheet" href="main.css">
-	<script type="text/javascript" src="res_script.js">
-	</script>
-	<script type="text/javascript" src="return_script.js">
+<script type="text/javascript" src="script.js">
+
 	</script>
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
 	<title>Class Identifier Tiny Tool</title>
@@ -32,86 +31,8 @@
 		<button type="button" style="color:black" onclick="window.location.href = 'all_res.html'">See All Session Results</button>
         <br><br><br><br><br>
 		<form style="color:antiquewhite">Input your Email:<input style="margin-left: 90px" type="text" name= "email"></form><br>
-		<button type="button" style="color:black" onclick="email()">Email Results</button>
+		<button type="button" style="color:black" onclick="email(-1)">Email Results</button>
         <br>
 		<p id = "email_results" style="color:antiquewhite"></p>
     </body>
 </html>
-
-<script>
-function email() {
-
-	//get our current result from the session variable 
-	jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
-	
-	
-	//make sure the page is still set okay 
-	char1.textContent = jsarray[18]; 
-	char2.textContent = jsarray[19]; 
-	char3.textContent = jsarray[20]; 
-	char4.textContent = jsarray[21]; 
-	char5.textContent = jsarray[22]; 
-	char6.textContent = jsarray[23]; 
-	result.textContent = jsarray[24]; 
-	
-	
-	//start forming the email body 
-	var body = 'Answers: '; 
-	
-	
-	//get the answer for every question 
-	for (var i = 0; i < 18; i++) {
-		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
-	}
-	
-	//get the results and explanation text 
-	body += "<br><br>Results: "; 
-	body +="<br>" + String(result.textContent); 
-	
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char1.textContent); 
-		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char2.textContent); 
-		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char3.textContent); 
-		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char4.textContent); 
-		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char5.textContent); 
-		}
-		if (String(char1.textContent) != "") {
-			body +="<br>" + String(char6.textContent); 
-		}
-	
-	
-		
-	
-	//get name of the email
-	var email_name = document.getElementsByName('email');
-	
-	
-	//make sure results stay set 
-	result.textContent = jsarray[24]; 
-	
-	
-	
-	//send email and give response 
-	Email.send({
-		Host : "smtp.gmail.com",
-		Username : "dpdemailalerts@gmail.com",
-		Password : "classIDpass",
-		To : email_name[0].value,
-		From : "dpdemailalerts@gmail.com",
-		Subject : "Results",
-		Body : body
-    }).then(
-      message => alert(message)
-    );
-	
-	
-}
-</script>

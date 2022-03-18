@@ -1,3 +1,5 @@
+
+//calculate if value is a class 
 function isClass() {
   //clarify where we are putting the result text. 
   var result = document.getElementById('result');
@@ -451,4 +453,197 @@ function isClass() {
   sessionStorage.setItem("jsarray", JSON.stringify(jsarray)); 
   window.location.href = 'results.html'; 
 
+}
+
+//return to home page 
+function return_page() {
+	
+	//just send back to home 
+	window.location.href = 'index.html';
+}
+
+//load the result answer on the results page 
+function loadres() {
+	
+	//load results from answers on index.html 
+	
+	//get the current results 
+	jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
+	
+	//load results history
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+	var entries =JSON.parse(sessionStorage.getItem("entries")); 
+	
+	//if there is no history yet, initialize it 
+	if (allEnters == null) {
+		
+		entries  = 1; 
+		allEnters = []; 
+		allEnters[entries - 1] = jsarray; 
+		sessionStorage.setItem("jsarray_all", JSON.stringify(allEnters));
+		sessionStorage.setItem("entries", entries);
+	}
+	
+	//add to history if it exists 
+	else {
+		entries += 1
+		allEnters[entries - 1] = jsarray; 
+		sessionStorage.setItem("jsarray_all", JSON.stringify(allEnters));
+		sessionStorage.setItem("entries", entries);
+	}
+	
+	//print results to screen 
+	result.textContent = jsarray[24]; 
+	char1.textContent = jsarray[18]; 
+	char2.textContent = jsarray[19]; 
+	char3.textContent = jsarray[20]; 
+	char4.textContent = jsarray[21]; 
+	char5.textContent = jsarray[22]; 
+	char6.textContent = jsarray[23]; 
+}
+
+//load all the results on the result history page 
+function allRes() {
+
+	//get history 
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+	
+	if (allEnters != null)  {
+	
+		//for all the submissions 
+		for (var i = 0; i < allEnters.length; i++) {
+		
+			
+			//form body to show history 
+			var body = '<div id = ' + String(i) + '>Answers for attempt ' + String(i + 1) + ': '; 
+			
+			//show answers to Q's 
+			for (var j = 0; j < 18; j++) {
+				
+				
+				body += "<br><br>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]); 
+			}
+			
+			//print the result text 
+			body += "<br><br>Results: "; 
+			
+			body += "<br>" + String(allEnters[i][24]); 
+			
+				if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
+					body +="<br>" + String(allEnters[i][18]); 
+				}
+				if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
+					body +="<br>" + String(allEnters[i][19]); 
+				}
+				if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
+					body +="<br>" + String(allEnters[i][20]); 
+				}
+				if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
+					body +="<br>" + String(allEnters[i][21]); 
+				}
+				if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
+					body +="<br>" + String(allEnters[i][22]); 
+				}
+				if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
+					body +="<br>" + String(allEnters[i][23]); 
+				}
+			
+				//add option to send this result from the history to email 
+				body +="</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
+				
+				//display on HTML 
+				document.body.innerHTML = document.body.innerHTML + body; 
+			
+		
+		}
+	}
+	else {
+	
+		//form body to show history 
+		var body = "<h1> No Results</h1>";
+		//display on HTML 
+		document.body.innerHTML = document.body.innerHTML + body; 
+	
+	}
+	
+}
+
+//send email of results 
+function email(index) {
+
+	//value if it is sending only current result from result page 
+	if (index == -1) {
+		//get our current result from the session variable 
+		jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
+		
+		
+		//make sure the page is still set okay 
+		char1.textContent = jsarray[18]; 
+		char2.textContent = jsarray[19]; 
+		char3.textContent = jsarray[20]; 
+		char4.textContent = jsarray[21]; 
+		char5.textContent = jsarray[22]; 
+		char6.textContent = jsarray[23]; 
+		result.textContent = jsarray[24]; 
+	}
+	else {
+		//get history 
+		var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+
+		//get the submission the user chose to email 
+		jsarray = allEnters[index]; 
+	}
+	
+	//start email body 
+	var body = 'Answers: '; 
+	
+	//get the answers to the Qs
+	for (var i = 0; i < 18; i++) {
+		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
+	}
+	
+	
+	//print the result text and eplanation 
+	body += "<br><br>Results: "; 
+	body +="<br>" + String(jsarray[24]); 
+	
+	
+	
+		if (String(jsarray[18]) != "") {
+			body +="<br>" + String(jsarray[18]); 
+		}
+		if (String(jsarray[19]) != "") {
+			body +="<br>" + String(jsarray[19]); 
+		}
+		if (String(jsarray[20]) != "") {
+			body +="<br>" + String(jsarray[20]); 
+		}
+		if (String(jsarray[21]) != "") {
+			body +="<br>" + String(jsarray[21]); 
+		}
+		if (String(jsarray[22]) != "") {
+			body +="<br>" + String(jsarray[22]); 
+		}
+		if (String(jsarray[23]) != "") {
+			body +="<br>" + String(jsarray[23]); 
+		}
+	
+	
+	//get name of the email
+	var email_name = document.getElementsByName('email');
+
+	
+	//send email and response 
+	Email.send({
+		Host : "smtp.gmail.com",
+		Username : "tinytoolcis@gmail.com",
+		Password : "resetpass",
+		To : email_name[0].value,
+		From : "tinytoolcis@gmail.com",
+		Subject : "Results",
+		Body : body
+    }).then(
+      message => alert(message)
+    );
+	
 }
