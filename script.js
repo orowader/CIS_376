@@ -515,41 +515,41 @@ function allRes() {
 		
 			
 			//form body to show history 
-			var body = '<div id = ' + String(i) + '>Answers for attempt ' + String(i + 1) + ': '; 
+			var body = "<table name='table'><tr><td>Answers for attempt " + String(i + 1) + "</td></tr> "; 
 			
 			//show answers to Q's 
 			for (var j = 0; j < 18; j++) {
 				
 				
-				body += "<br><br>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]); 
+				body += "<tr><td>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]) + "</td></tr>"; 
 			}
 			
 			//print the result text 
-			body += "<br><br>Results: "; 
+			body += "<tr><td></td></tr><tr><td>Results: </td></tr>"; 
 			
-			body += "<br>" + String(allEnters[i][24]); 
+			body += "<tr><td>" + String(allEnters[i][24]) +"</td></tr>"; 
 			
 				if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
-					body +="<br>" + String(allEnters[i][18]); 
+					body +="<tr><td>" + String(allEnters[i][18])+"</td></tr>"; 
 				}
 				if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
-					body +="<br>" + String(allEnters[i][19]); 
+					body +="<tr><td>" + String(allEnters[i][19])+"</td></tr>"; 
 				}
 				if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
-					body +="<br>" + String(allEnters[i][20]); 
+					body +="<tr><td>" + String(allEnters[i][20])+"</td></tr>";  
 				}
 				if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
-					body +="<br>" + String(allEnters[i][21]); 
+					body +="<tr><td>" + String(allEnters[i][21])+"</td></tr>"; 
 				}
 				if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
-					body +="<br>" + String(allEnters[i][22]); 
+					body +="<tr><td>" + String(allEnters[i][22])+"</td></tr>"; 
 				}
 				if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
-					body +="<br>" + String(allEnters[i][23]); 
+					body +="<tr><td>" + String(allEnters[i][23])+"</td></tr>"; 
 				}
 			
 				//add option to send this result from the history to email 
-				body +="</div><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
+				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
 				
 				//display on HTML 
 				document.body.innerHTML = document.body.innerHTML + body; 
