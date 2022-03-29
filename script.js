@@ -71,30 +71,8 @@ function init_jsarray() {
   return jsarray;
 }
 
-//print results of a form 
-function compute_res(flag, naCount, char, jsarray, class_name){
-	//if a question was left blank 
-    if (flag) {
-      result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
-    }
-
-    //if too many questions were answered N/A we let the user know
-    //we can't make a reliable determination on their class 
-    else if (naCount >= 8) {
-      result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
-    }
-
-    //otherwise we either print the class passed
-    //or we print that it failed and which charateristics it failed which led to it failing 
-    else {
-      var failCount = 0;
-      for (var j = 1; j <= 6; ++j) {
-        if (!char[j]) {
-          ++failCount;
-        }
-      }
-      if (failCount >= 2 || !char[3] || !char[6]) {
-        result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
+function store_res(char, jsarray, class_name) {
+	result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
 
           if (!char[1]) {
             char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
@@ -120,14 +98,39 @@ function compute_res(flag, naCount, char, jsarray, class_name){
             char6.textContent = class_name[0].value + " failed characteristic 6 because the class does not consume or produce information essential to the system which is essential for a class to do. Failure of this characteristic is critical and leads to failure of the entire class.";
 			jsarray[23] = char6.textContent
 		  }
+}
+
+
+//print results of a form 
+function compute_res(flag, naCount, char, jsarray, class_name){
+	//if a question was left blank 
+    if (flag) {
+      result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
+    }
+
+    //if too many questions were answered N/A we let the user know
+    //we can't make a reliable determination on their class 
+    else if (naCount >= 8) {
+      result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
+    }
+
+    //otherwise we either print the class passed
+    //or we print that it failed and which charateristics it failed which led to it failing 
+    else {
+      var failCount = 0;
+      for (var j = 1; j <= 6; ++j) {
+        if (!char[j]) {
+          ++failCount;
+        }
+      }
+      if (failCount >= 2 || !char[3] || !char[6]) {
+        store_res(char, jsarray, class_name);
       }
       else {
         result.textContent = "Congratulations " + class_name[0].value + " is a Class!"
       }
     }
 }
-
-
 
 //calculate if value is a class 
 function isClass() {
