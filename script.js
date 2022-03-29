@@ -1,4 +1,5 @@
 
+//get page elements upon submission
 function getElements() {
 	var q = new Array(18)
 	
@@ -25,6 +26,7 @@ function getElements() {
   return q; 
 }
 
+//reset the text of the results page 
 function resetText() {
 	//reset all possible tool created texts 
   char1.textContent = ""; 
@@ -36,34 +38,12 @@ function resetText() {
   result.textContent = " "; 
 }
 
-//calculate if value is a class 
-function isClass() {
-  //clarify where we are putting the result text. 
-  var result = document.getElementById('result');
-
-  //get name of the class 
-  var class_name = document.getElementsByName('classname');
-
-	//reset all possible tool created texts 
-  resetText(); 
-
-  var points = 0;
-  var naCount = 0;
-  var q = new Array(18)
-  var jsarray = new Array(24) 
-  var char = new Array(false, false, false, false, false, false, false);
-  var flag = false;
-
- //if class isn't given a name by the user, then we assign it a default name 
-  if (class_name[0].value == "") {
-    class_name[0].value = "your class";
-  }
-
-  jsarray = []
-
-  q = getElements() 
-  
-  jsarray[0] = 'Is the class name a noun?: ';
+//initialize jsarray with question descriptions 
+function init_jsarray() {
+	jsarray = []; 
+	
+	
+	jsarray[0] = 'Is the class name a noun?: ';
   jsarray[1] = 'Will the class have attributes?: ';
   jsarray[2] = 'If yes, will the class have its own unique attributes?: ';
   jsarray[3] = 'If the class has its own attributes, will they need to be remembered in order for your software to function?: ';
@@ -81,6 +61,98 @@ function isClass() {
   jsarray[15] = 'If yes, does it apply to ALL instances of the class?: ';
   jsarray[16] = 'Does this class produce information essential to the operation of a solution for the system?: ';
   jsarray[17] = 'Does this class consume information essential to the operation of a solution for the system?: ';
+  jsarray[19] = '';
+  jsarray[20] = '';
+  jsarray[21] = '';
+  jsarray[22] = '';
+  jsarray[23] = '';
+  jsarray[24] = '';
+  
+  return jsarray;
+}
+
+//print results of a form 
+function compute_res(flag, naCount, char, jsarray, class_name){
+	//if a question was left blank 
+    if (flag) {
+      result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
+    }
+
+    //if too many questions were answered N/A we let the user know
+    //we can't make a reliable determination on their class 
+    else if (naCount >= 8) {
+      result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
+    }
+
+    //otherwise we either print the class passed
+    //or we print that it failed and which charateristics it failed which led to it failing 
+    else {
+      var failCount = 0;
+      for (var j = 1; j <= 6; ++j) {
+        if (!char[j]) {
+          ++failCount;
+        }
+      }
+      if (failCount >= 2 || !char[3] || !char[6]) {
+        result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
+
+          if (!char[1]) {
+            char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
+			jsarray[18] = char1.textContent
+          }
+          if (!char[2]) {
+            char2.textContent = class_name[0].value + " failed characteristic 2 because it didn't have important operations for the system."
+			jsarray[19] = char2.textContent
+          }
+          if (!char[3]) {
+            char3.textContent = class_name[0].value + " failed characteristic 3 because this class is better represented as an attribute(s) of another class and should not stand on its own. Failure of this characteristic is critical and leads to failure of the entire class."
+			jsarray[20] = char3.textContent
+		  } 
+          if (!char[4]) {
+            char4.textContent = class_name[0].value + " failed characteristic 4 because it didn't share enough attributes between instances of the class."
+			jsarray[21] = char4.textContent
+		  }
+         if (!char[5]) {
+            char5.textContent = class_name[0].value + " failed characteristic 5 because it didn't share enough operations between instances of the class."
+			jsarray[22] = char5.textContent
+		  }
+          if (!char[6]) {
+            char6.textContent = class_name[0].value + " failed characteristic 6 because the class does not consume or produce information essential to the system which is essential for a class to do. Failure of this characteristic is critical and leads to failure of the entire class.";
+			jsarray[23] = char6.textContent
+		  }
+      }
+      else {
+        result.textContent = "Congratulations " + class_name[0].value + " is a Class!"
+      }
+    }
+}
+
+
+
+//calculate if value is a class 
+function isClass() {
+  //clarify where we are putting the result text. 
+  var result = document.getElementById('result');
+
+  //get name of the class 
+  var class_name = document.getElementsByName('classname');
+
+	//reset all possible tool created texts 
+  resetText(); 
+
+  var points = 0;
+  var naCount = 0;
+  var jsarray = new Array(24) 
+  var char = new Array(false, false, false, false, false, false, false);
+  var flag = false;
+  var jsarray = init_jsarray()
+  var q = getElements() 
+  
+  
+  //if class isn't given a name by the user, then we assign it a default name 
+  if (class_name[0].value == "") {
+    class_name[0].value = "your class";
+  }
   
   
   //get values to store in array for results later 
@@ -93,12 +165,6 @@ function isClass() {
 	  }
   }
   
-  jsarray[19] = '';
-  jsarray[20] = '';
-  jsarray[21] = '';
-  jsarray[22] = '';
-  jsarray[23] = '';
-  jsarray[24] = '';
 
   /*First question is seperate from the rest 
   since if this question is false the class fails anyways,
@@ -398,59 +464,7 @@ function isClass() {
       char[6] = true;
     }
    
-
-    //if a question was left blank 
-    if (flag) {
-      result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
-    }
-
-    //if too many questions were answered N/A we let the user know
-    //we can't make a reliable determination on their class 
-    else if (naCount >= 8) {
-      result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
-    }
-
-    //otherwise we either print the class passed
-    //or we print that it failed and which charateristics it failed which led to it failing 
-    else {
-      var failCount = 0;
-      for (var j = 1; j <= 6; ++j) {
-        if (!char[j]) {
-          ++failCount;
-        }
-      }
-      if (failCount >= 2 || !char[3] || !char[6]) {
-        result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
-
-          if (!char[1]) {
-            char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
-			jsarray[18] = char1.textContent
-          }
-          if (!char[2]) {
-            char2.textContent = class_name[0].value + " failed characteristic 2 because it didn't have important operations for the system."
-			jsarray[19] = char2.textContent
-          }
-          if (!char[3]) {
-            char3.textContent = class_name[0].value + " failed characteristic 3 because this class is better represented as an attribute(s) of another class and should not stand on its own. Failure of this characteristic is critical and leads to failure of the entire class."
-			jsarray[20] = char3.textContent
-		  } 
-          if (!char[4]) {
-            char4.textContent = class_name[0].value + " failed characteristic 4 because it didn't share enough attributes between instances of the class."
-			jsarray[21] = char4.textContent
-		  }
-         if (!char[5]) {
-            char5.textContent = class_name[0].value + " failed characteristic 5 because it didn't share enough operations between instances of the class."
-			jsarray[22] = char5.textContent
-		  }
-          if (!char[6]) {
-            char6.textContent = class_name[0].value + " failed characteristic 6 because the class does not consume or produce information essential to the system which is essential for a class to do. Failure of this characteristic is critical and leads to failure of the entire class.";
-			jsarray[23] = char6.textContent
-		  }
-      }
-      else {
-        result.textContent = "Congratulations " + class_name[0].value + " is a Class!"
-      }
-    }
+	compute_res(flag, naCount, char, jsarray, class_name); 
   }
 
   //if the first question was left blank we let the user know
