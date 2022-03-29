@@ -26,9 +26,6 @@ h3 {
     font-weight: 300;
     font-size:12px;
 }
-class {
-    color:darkblue;
-}
 table, th, td {
   border: 1px solid gray;
   background: #F0F0F0;
