@@ -98,7 +98,7 @@ function isClass() {
   }
 
  //only if q1 isn't false 
-  if (char[0] == true) {
+  if (char[0]) {
 
     /*
     *******************************************************************************
@@ -119,7 +119,10 @@ function isClass() {
     depending on the contextual importance of not knowing the answer to a prticular question.
     *********************************************************************************
     */ 
-    for (var i = 1; i <= 3; ++i) { //for q2-4
+	var i = 0
+	
+	
+    for (i = 1; i <= 3; ++i) { //for q2-4
       if (q[i][0].checked)
         if (i == 1) {       //q2 yes is selected
           points += 5;
@@ -173,7 +176,7 @@ function isClass() {
       COMMENTED
      *******************************************************************************/
 
-    for (var i = 4; i <= 6; ++i) { //for q5-7
+    for (i = 4; i <= 6; ++i) { //for q5-7
       if (q[i][0].checked)
         if (i == 4) {
           points += 5;
@@ -217,7 +220,7 @@ function isClass() {
     }
     points = 0;
 
-    for (var i = 7; i <= 9; ++i) { //for q8-10
+    for (i = 7; i <= 9; ++i) { //for q8-10
       if (q[i][0].checked)
         if (i == 7) {
           points += 5;
@@ -261,7 +264,7 @@ function isClass() {
     }
     points = 0;
 
-    for (var i = 10; i <= 12; ++i) { //for q11-13
+    for (i = 10; i <= 12; ++i) { //for q11-13
       if (q[i][0].checked)
         if (i == 10) {
           points += 5;
@@ -305,7 +308,7 @@ function isClass() {
     }
     points = 0;
 
-    for (var i = 13; i <= 15; ++i) { //for q14-16
+    for (i = 13; i <= 15; ++i) { //for q14-16
       if (q[i][0].checked)
         if (i == 13) {
           points += 5;
@@ -349,7 +352,7 @@ function isClass() {
     }
     points = 0;
 
-    for (var i = 16; i <= 17; ++i) { //for q17-18
+    for (i = 16; i <= 17; ++i) { //for q17-18
       if (q[i][0].checked)
         if (i == 16) {
           points += 100;
@@ -399,34 +402,34 @@ function isClass() {
     else {
       var failCount = 0;
       for (var j = 1; j <= 6; ++j) {
-        if (char[j] == false) {
+        if (!char[j]) {
           ++failCount;
         }
       }
-      if (failCount >= 2 || char[3] == false || char[6] == false) {
+      if (failCount >= 2 || !char[3] || !char[6]) {
         result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
 
-          if (char[1] == false) {
+          if (!char[1]) {
             char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
 			jsarray[18] = char1.textContent
           }
-          if (char[2] == false) {
+          if (!char[2]) {
             char2.textContent = class_name[0].value + " failed characteristic 2 because it didn't have important operations for the system."
 			jsarray[19] = char2.textContent
           }
-          if (char[3] == false) {
+          if (!char[3]) {
             char3.textContent = class_name[0].value + " failed characteristic 3 because this class is better represented as an attribute(s) of another class and should not stand on its own. Failure of this characteristic is critical and leads to failure of the entire class."
 			jsarray[20] = char3.textContent
 		  } 
-          if (char[4] == false) {
+          if (!char[4]) {
             char4.textContent = class_name[0].value + " failed characteristic 4 because it didn't share enough attributes between instances of the class."
 			jsarray[21] = char4.textContent
 		  }
-         if (char[5] == false) {
+         if (!char[5]) {
             char5.textContent = class_name[0].value + " failed characteristic 5 because it didn't share enough operations between instances of the class."
 			jsarray[22] = char5.textContent
 		  }
-          if (char[6]== false) {
+          if (!char[6]) {
             char6.textContent = class_name[0].value + " failed characteristic 6 because the class does not consume or produce information essential to the system which is essential for a class to do. Failure of this characteristic is critical and leads to failure of the entire class.";
 			jsarray[23] = char6.textContent
 		  }
@@ -438,7 +441,7 @@ function isClass() {
   }
 
   //if the first question was left blank we let the user know
-  else if (q[0][0].checked != true && q[0][1].checked != true && q[0][2].checked != true) {
+  else if (!q[0][0].checked && !q[0][1].checked && !q[0][2].checked) {
     result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
   }
 
@@ -468,7 +471,7 @@ function loadres() {
 	//load results from answers on index.html 
 	
 	//get the current results 
-	jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
+	var jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
 	
 	//load results history
 	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
@@ -508,6 +511,8 @@ function allRes() {
 	//get history 
 	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
 	
+	var body = ""; 
+	
 	if (allEnters != null)  {
 	
 		//for all the submissions 
@@ -515,7 +520,7 @@ function allRes() {
 		
 			
 			//form body to show history 
-			var body = "<table name='table'><tr><td>Answers for attempt " + String(i + 1) + "</td></tr> "; 
+			body = "<table name='table'><tr><td>Answers for attempt " + String(i + 1) + "</td></tr> "; 
 			
 			//show answers to Q's 
 			for (var j = 0; j < 18; j++) {
@@ -529,24 +534,11 @@ function allRes() {
 			
 			body += "<tr><td>" + String(allEnters[i][24]) +"</td></tr>"; 
 			
-				if (String(allEnters[i][18]) != "null" && String(allEnters[i][18]) != "") {
-					body +="<tr><td>" + String(allEnters[i][18])+"</td></tr>"; 
+			for (var j = 18; j < 24; ++j) {
+				if (String(allEnters[i][j]) != "null" && String(allEnters[i][j]) != "") {
+					body +="<tr><td>" + String(allEnters[i][j])+"</td></tr>"; 
 				}
-				if (String(allEnters[i][19]) != "null" && String(allEnters[i][19]) != "") {
-					body +="<tr><td>" + String(allEnters[i][19])+"</td></tr>"; 
-				}
-				if (String(allEnters[i][20]) != "null" && String(allEnters[i][20]) != "") {
-					body +="<tr><td>" + String(allEnters[i][20])+"</td></tr>";  
-				}
-				if (String(allEnters[i][21]) != "null" && String(allEnters[i][21]) != "") {
-					body +="<tr><td>" + String(allEnters[i][21])+"</td></tr>"; 
-				}
-				if (String(allEnters[i][22]) != "null" && String(allEnters[i][22]) != "") {
-					body +="<tr><td>" + String(allEnters[i][22])+"</td></tr>"; 
-				}
-				if (String(allEnters[i][23]) != "null" && String(allEnters[i][23]) != "") {
-					body +="<tr><td>" + String(allEnters[i][23])+"</td></tr>"; 
-				}
+			}
 			
 				//add option to send this result from the history to email 
 				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
@@ -560,7 +552,7 @@ function allRes() {
 	else {
 	
 		//form body to show history 
-		var body = "<h1> No Results</h1>";
+		body = "<h1> No Results</h1>";
 		//display on HTML 
 		document.body.innerHTML = document.body.innerHTML + body; 
 	
