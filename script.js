@@ -1,37 +1,8 @@
 
-//calculate if value is a class 
-function isClass() {
-  //clarify where we are putting the result text. 
-  var result = document.getElementById('result');
-
-  //get name of the class 
-  var class_name = document.getElementsByName('classname');
-
-  //reset all possible tool created texts 
-  char1.textContent = ""; 
-  char2.textContent = ""; 
-  char3.textContent = ""; 
-  char4.textContent = ""; 
-  char5.textContent = ""; 
-  char6.textContent = "";
-  result.textContent = " "; 
-
-  var points = 0;
-  var naCount = 0;
-  var q = new Array(18)
-  var jsarray = new Array(24) 
-  var char = new Array(false, false, false, false, false, false, false);
-  var flag = false;
-
- //if class isn't given a name by the user, then we assign it a default name 
-  if (class_name[0].value == "") {
-    class_name[0].value = "your class";
-  }
-  
-  
-  jsarray = []
-
- //get all user answers for the questions
+function getElements() {
+	var q = new Array(18)
+	
+	//get all user answers for the questions
   q[0] = document.getElementsByName('q1');
   q[1] = document.getElementsByName('q2');
   q[2] = document.getElementsByName('q3');
@@ -50,6 +21,47 @@ function isClass() {
   q[15] = document.getElementsByName('q16');
   q[16] = document.getElementsByName('q17');
   q[17] = document.getElementsByName('q18');
+  
+  return q; 
+}
+
+function resetText() {
+	//reset all possible tool created texts 
+  char1.textContent = ""; 
+  char2.textContent = ""; 
+  char3.textContent = ""; 
+  char4.textContent = ""; 
+  char5.textContent = ""; 
+  char6.textContent = "";
+  result.textContent = " "; 
+}
+
+//calculate if value is a class 
+function isClass() {
+  //clarify where we are putting the result text. 
+  var result = document.getElementById('result');
+
+  //get name of the class 
+  var class_name = document.getElementsByName('classname');
+
+	//reset all possible tool created texts 
+  resetText(); 
+
+  var points = 0;
+  var naCount = 0;
+  var q = new Array(18)
+  var jsarray = new Array(24) 
+  var char = new Array(false, false, false, false, false, false, false);
+  var flag = false;
+
+ //if class isn't given a name by the user, then we assign it a default name 
+  if (class_name[0].value == "") {
+    class_name[0].value = "your class";
+  }
+
+  jsarray = []
+
+  q = getElements() 
   
   jsarray[0] = 'Is the class name a noun?: ';
   jsarray[1] = 'Will the class have attributes?: ';
@@ -80,6 +92,7 @@ function isClass() {
 		  }
 	  }
   }
+  
   jsarray[19] = '';
   jsarray[20] = '';
   jsarray[21] = '';
