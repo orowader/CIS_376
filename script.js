@@ -40,7 +40,7 @@ function resetText() {
 
 //initialize jsarray with question descriptions 
 function init_jsarray() {
-	jsarray = []; 
+	var jsarray = []; 
 	
 	
 	jsarray[0] = 'Is the class name a noun?: ';
@@ -101,6 +101,58 @@ function store_res(char, jsarray, class_name) {
 }
 
 
+function calcOneThruThree(q, counters) {
+	
+	naCount = counters[0];
+	points = counters[1];
+	
+	
+	 for (var i = 1; i <= 3; ++i) { //for q2-4
+      if (q[i][0].checked)
+        if (i == 1) {       //q2 yes is selected
+          points += 5;
+        }
+        else if (i == 2) {  //q3 yes is selected
+          points += 1;
+        }
+        else {              //q4 yes is selected
+          points += 1;     
+        }
+      else if (q[i][1].checked)
+        if (i == 1) {      //q2 no is selected (CRITICAL)
+          points -= 100;
+        }
+        else if (i == 2) { //q3 no is selected
+          points -= 3;
+        }
+        else {             //q4 no is selected
+          points -= 3; 
+        }
+      else if (q[i][2].checked)
+        if (i == 1) {
+          points -= 100;   //q2 N/A is selected (CRITICAL)
+          naCount++;
+        }
+        else if (i == 2) { //q3 N/A is selected
+          points += 0;
+          naCount++;
+        }
+        else {             //q4 N/A is selected
+          points += 0;
+          naCount++;
+        }
+       //A Question was left unanswered raises a flag, so the program will prompt
+       //the user to fill out any empty q's before it calculates an answer 
+      else { 
+        flag = true;
+      }
+    }
+	
+	counters[0] = naCount;
+	counters[1] = points; 
+}
+
+
 //print results of a form 
 function compute_res(flag, naCount, char, jsarray, class_name){
 	//if a question was left blank 
@@ -145,11 +197,11 @@ function isClass() {
 
   var points = 0;
   var naCount = 0;
-  var jsarray = new Array(24) 
+  counters = [naCount, points]; 
   var char = new Array(false, false, false, false, false, false, false);
   var flag = false;
-  var jsarray = init_jsarray()
-  var q = getElements() 
+  var jsarray = init_jsarray();
+  var q = getElements();
   
   
   //if class isn't given a name by the user, then we assign it a default name 
@@ -203,48 +255,10 @@ function isClass() {
     */ 
 	var i = 0
 	
+	calcOneThruThree(q, counters);
+	naCount = counters[0];
+	points = counters[1] 
 	
-    for (i = 1; i <= 3; ++i) { //for q2-4
-      if (q[i][0].checked)
-        if (i == 1) {       //q2 yes is selected
-          points += 5;
-        }
-        else if (i == 2) {  //q3 yes is selected
-          points += 1;
-        }
-        else {              //q4 yes is selected
-          points += 1;     
-        }
-      else if (q[i][1].checked)
-        if (i == 1) {      //q2 no is selected (CRITICAL)
-          points -= 100;
-        }
-        else if (i == 2) { //q3 no is selected
-          points -= 3;
-        }
-        else {             //q4 no is selected
-          points -= 3; 
-        }
-      else if (q[i][2].checked)
-        if (i == 1) {
-          points -= 100;   //q2 N/A is selected (CRITICAL)
-          naCount++;
-        }
-        else if (i == 2) { //q3 N/A is selected
-          points += 0;
-          naCount++;
-        }
-        else {             //q4 N/A is selected
-          points += 0;
-          naCount++;
-        }
-       //A Question was left unanswered raises a flag, so the program will prompt
-       //the user to fill out any empty q's before it calculates an answer 
-      else { 
-        flag = true;
-      }
-    }
-
     //if points is positive it passes the characteristic test 
     if (points >= 0) {
       char[1] = true;
