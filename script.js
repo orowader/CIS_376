@@ -71,9 +71,12 @@ function init_jsarray() {
   return jsarray;
 }
 
+
+//write the results in their characteristic boxes 
 function store_res(char, jsarray, class_name) {
 	result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
 
+			//if a characteristic fails we print why 
           if (!char[1]) {
             char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
 			jsarray[18] = char1.textContent
@@ -99,7 +102,6 @@ function store_res(char, jsarray, class_name) {
 			jsarray[23] = char6.textContent
 		  }
 }
-
 
 //print results of a form 
 function compute_res(flag, naCount, char, jsarray, class_name){
@@ -155,7 +157,6 @@ function isClass() {
   if (class_name[0].value == "") {
     class_name[0].value = "your class";
   }
-  
   
   //get values to store in array for results later 
   for (var z = 0; z < q.length; z++) {
@@ -466,6 +467,7 @@ function isClass() {
       char[6] = true;
     }
    
+   //compute the results 
 	compute_res(flag, naCount, char, jsarray, class_name); 
   }
 
