@@ -306,7 +306,7 @@ function isClass() {
     if (points >= 0) {
       char[4] = true;
     }
-    points = 0;
+    
 
     for (i = 13; i <= 15; ++i) { //for q14-16
       if (q[i][0].checked)
@@ -534,9 +534,9 @@ function allRes() {
 			
 			body += "<tr><td>" + String(allEnters[i][24]) +"</td></tr>"; 
 			
-			for (var j = 18; j < 24; ++j) {
-				if (String(allEnters[i][j]) != "null" && String(allEnters[i][j]) != "") {
-					body +="<tr><td>" + String(allEnters[i][j])+"</td></tr>"; 
+			for (var k = 18; k < 24; ++k) {
+				if (String(allEnters[i][k]) != "null" && String(allEnters[i][k]) != "") {
+					body +="<tr><td>" + String(allEnters[i][k])+"</td></tr>"; 
 				}
 			}
 			
@@ -566,7 +566,7 @@ function email(index) {
 	//value if it is sending only current result from result page 
 	if (index == -1) {
 		//get our current result from the session variable 
-		jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
+		var jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
 		
 		
 		//make sure the page is still set okay 
