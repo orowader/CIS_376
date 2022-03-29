@@ -384,7 +384,7 @@ function isClass() {
     if (points >= 0) {
       char[6] = true;
     }
-    points = 0;
+   
 
     //if a question was left blank 
     if (flag) {
@@ -562,11 +562,12 @@ function allRes() {
 
 //send email of results 
 function email(index) {
+	var jsarray = ''; 
 
 	//value if it is sending only current result from result page 
 	if (index == -1) {
 		//get our current result from the session variable 
-		var jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
+		jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
 		
 		
 		//make sure the page is still set okay 
