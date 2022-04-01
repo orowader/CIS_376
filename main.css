@@ -1,16 +1,18 @@
 html {
-    background: #000000;
-    background-image: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(184, 184, 184) 100%);
+  background: #000000;
+  background-image: linear-gradient(90deg, rgb(0, 53, 197) 0%, rgb(33, 61, 122) 100%);
 }
 body {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
-    color: #545454;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 2em 2em 4em;
+  border-radius: 25px;
+  background-color: rgb(38, 50, 71);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+  color: #545454;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 4em auto 4em;
+  max-width: 50%;
+  padding: 2em 2em 4em;
 }
 h1 {
     color:antiquewhite
@@ -30,7 +32,7 @@ h3 {
   border-collapse: collapse;
   margin: auto;
   font-size: 0.9em;
-  width:110%;
+  width:100%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
