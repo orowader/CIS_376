@@ -35,10 +35,12 @@
 		</tr>
 		</table>
 		<br>
-        <button type="button" style="color:black" onclick="return_page()">Return to Form</button><br><br><br><br><br><br>
-		<button type="button" style="color:black" onclick="window.location.href = 'all_res.html'">See All Session Results</button>
-        <br><br><br><br><br>
-		<form style="color:antiquewhite">Input your Email:<input style="margin-left: 90px" type="text" name= "email"></form><br>
+		<div class = "navigation">
+			<button type="button" style="color:black" onclick="return_page()">Return to Form</button><br><br>
+			<button type="button" style="color:black" onclick="window.location.href = 'all_res.html'">See All Session Results</button>
+		</div>
+        <br><br>
+		<form style="color:antiquewhite">Input your Email:<input style="margin-left: 20px" type="text" name= "email"></form><br>
 		<button type="button" style="color:black" onclick="email(-1)">Email Results</button>
         <br>
 		<p id = "email_results" style="color:antiquewhite"></p>

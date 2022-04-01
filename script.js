@@ -572,7 +572,7 @@ function allRes() {
 			}
 
 				//add option to send this result from the history to email
-				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>";
+				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 20px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>";
 
 				//display on HTML
 				document.body.innerHTML = document.body.innerHTML + body;
