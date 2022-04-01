@@ -42,7 +42,6 @@ function resetText() {
 function init_jsarray() {
 	var jsarray = [];
 
-
 	jsarray[0] = 'Is the class name a noun?: ';
   jsarray[1] = 'Will the class have attributes?: ';
   jsarray[2] = 'If yes, will the class have its own unique attributes?: ';
@@ -172,11 +171,15 @@ function isClass() {
   /*First question is seperate from the rest
   since if this question is false the class fails anyways,
   saves computational power to not check the rest of the answers*/
-  if (q[0][0].checked || q[0][2].checked) {
+  if (!q[0][0].checked && !q[0][1].checked && !q[0][2].checked) {
+    result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
+  }
+  else if (q[0][0].checked || q[0][2].checked) {
     char[0] = true;
   }
   else {
-    char[0] = false;
+    char[0] = false;  //automatic fail
+    result.textContent = class_name[0].value + " failed because the name was chosen to not be a noun. In order for a class to be valid the name of it must be a noun. Not naming the class a noun is a critical issue/error, and therefore no other attributes were checked. ";
   }
 
  //only if q1 isn't false
@@ -471,16 +474,6 @@ function isClass() {
 	compute_res(flag, naCount, char, jsarray, class_name);
   }
 
-  //if the first question was left blank we let the user know
-  else if (!q[0][0].checked && !q[0][1].checked && !q[0][2].checked) {
-    result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
-  }
-
-  //if the first question was set as 'no' it automatically fai
-  else {
-    result.textContent = class_name[0].value + " failed because the name was chosen to not be a noun. In order for a class to be valid the name of it must be a noun. Not naming the class a noun is a critical issue/error, and therefore no other attributes were checked. ";
-  }
-
   jsarray[24] = result.textContent;
 
   //store all results in a session variable and navigate to results page
@@ -576,19 +569,14 @@ function allRes() {
 
 				//display on HTML
 				document.body.innerHTML = document.body.innerHTML + body;
-
-
 		}
 	}
 	else {
-
 		//form body to show history
 		body = "<h1> No Results</h1>";
 		//display on HTML
 		document.body.innerHTML = document.body.innerHTML + body;
-
 	}
-
 }
 
 //send email of results
@@ -599,7 +587,6 @@ function email(index) {
 	if (index == -1) {
 		//get our current result from the session variable
 		jsarray = JSON.parse(sessionStorage.getItem("jsarray"));
-
 
 		//make sure the page is still set okay
 		char1.textContent = jsarray[18];
@@ -630,8 +617,6 @@ function email(index) {
 	//print the result text and eplanation
 	body += "<br><br>Results: ";
 	body +="<br>" + String(jsarray[24]);
-
-
 
 		if (String(jsarray[18]) != "") {
 			body +="<br>" + String(jsarray[18]);
