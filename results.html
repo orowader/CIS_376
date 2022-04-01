@@ -12,17 +12,15 @@
 
 <body onload = "loadres()">
 	<h1>So... Is It a Class?</h1>
-        <table name = "tb">
-			<caption hidden> Display Results Table Title </caption>
-          <tr>
-            <th style="width:900px; text-align: center">Results</th>
-          </tr> 
-        </table>
-        <br>
-        <br>
-		<table name = "t">
+		<table name = "t" class = "content-table">
+			<thead class = "table-header">
+					<tr>
+						<th style="width:900px; text-align: center">Results</th>
+					</tr>
+			</thead>
 			<caption hidden> Display Results and Reasoning </caption>
 		<tr>
+
 		<th hidden>
 		<td>
         <p id = "result"style="color:black"></p>
@@ -35,7 +33,7 @@
 		</td>
 		</th>
 		</tr>
-		</table> 
+		</table>
 		<br>
         <button type="button" style="color:black" onclick="return_page()">Return to Form</button><br><br><br><br><br><br>
 		<button type="button" style="color:black" onclick="window.location.href = 'all_res.html'">See All Session Results</button>

@@ -2,7 +2,7 @@
 //get page elements upon submission
 function getElements() {
 	var q = new Array(18)
-	
+
 	//get all user answers for the questions
   q[0] = document.getElementsByName('q1');
   q[1] = document.getElementsByName('q2');
@@ -22,27 +22,27 @@ function getElements() {
   q[15] = document.getElementsByName('q16');
   q[16] = document.getElementsByName('q17');
   q[17] = document.getElementsByName('q18');
-  
-  return q; 
+
+  return q;
 }
 
-//reset the text of the results page 
+//reset the text of the results page
 function resetText() {
-	//reset all possible tool created texts 
-  char1.textContent = ""; 
-  char2.textContent = ""; 
-  char3.textContent = ""; 
-  char4.textContent = ""; 
-  char5.textContent = ""; 
+	//reset all possible tool created texts
+  char1.textContent = "";
+  char2.textContent = "";
+  char3.textContent = "";
+  char4.textContent = "";
+  char5.textContent = "";
   char6.textContent = "";
-  result.textContent = " "; 
+  result.textContent = " ";
 }
 
-//initialize jsarray with question descriptions 
+//initialize jsarray with question descriptions
 function init_jsarray() {
-	var jsarray = []; 
-	
-	
+	var jsarray = [];
+
+
 	jsarray[0] = 'Is the class name a noun?: ';
   jsarray[1] = 'Will the class have attributes?: ';
   jsarray[2] = 'If yes, will the class have its own unique attributes?: ';
@@ -67,16 +67,16 @@ function init_jsarray() {
   jsarray[22] = '';
   jsarray[23] = '';
   jsarray[24] = '';
-  
+
   return jsarray;
 }
 
 
-//write the results in their characteristic boxes 
+//write the results in their characteristic boxes
 function store_res(char, jsarray, class_name) {
 	result.textContent = "Sorry, " + class_name[0].value + " is not a class because: ";
 
-			//if a characteristic fails we print why 
+			//if a characteristic fails we print why
           if (!char[1]) {
             char1.textContent = class_name[0].value + " failed characteristic 1 because it didn't have important attributes for the system."
 			jsarray[18] = char1.textContent
@@ -88,7 +88,7 @@ function store_res(char, jsarray, class_name) {
           if (!char[3]) {
             char3.textContent = class_name[0].value + " failed characteristic 3 because this class is better represented as an attribute(s) of another class and should not stand on its own. Failure of this characteristic is critical and leads to failure of the entire class."
 			jsarray[20] = char3.textContent
-		  } 
+		  }
           if (!char[4]) {
             char4.textContent = class_name[0].value + " failed characteristic 4 because it didn't share enough attributes between instances of the class."
 			jsarray[21] = char4.textContent
@@ -103,21 +103,21 @@ function store_res(char, jsarray, class_name) {
 		  }
 }
 
-//print results of a form 
+//print results of a form
 function compute_res(flag, naCount, char, jsarray, class_name){
-	//if a question was left blank 
+	//if a question was left blank
     if (flag) {
       result.textContent = "Classification for "  + class_name[0].value + " could not be determined since some necessary question(s) were not completed. Please complete the questionnaire then resubmit."
     }
 
     //if too many questions were answered N/A we let the user know
-    //we can't make a reliable determination on their class 
+    //we can't make a reliable determination on their class
     else if (naCount >= 8) {
       result.textContent = class_name[0].value + " failed because there was not enough info provided by your answers in the questionnaire. Too many answers may have been labeled as N/A to make a determination.";
     }
 
     //otherwise we either print the class passed
-    //or we print that it failed and which charateristics it failed which led to it failing 
+    //or we print that it failed and which charateristics it failed which led to it failing
     else {
       var failCount = 0;
       for (var j = 1; j <= 6; ++j) {
@@ -134,16 +134,16 @@ function compute_res(flag, naCount, char, jsarray, class_name){
     }
 }
 
-//calculate if value is a class 
+//calculate if value is a class
 function isClass() {
-  //clarify where we are putting the result text. 
+  //clarify where we are putting the result text.
   var result = document.getElementById('result');
 
-  //get name of the class 
+  //get name of the class
   var class_name = document.getElementsByName('classname');
 
-	//reset all possible tool created texts 
-  resetText(); 
+	//reset all possible tool created texts
+  resetText();
 
   var points = 0;
   var naCount = 0;
@@ -151,25 +151,25 @@ function isClass() {
   var flag = false;
   var jsarray = init_jsarray();
   var q = getElements();
-  
-  
-  //if class isn't given a name by the user, then we assign it a default name 
+
+
+  //if class isn't given a name by the user, then we assign it a default name
   if (class_name[0].value == "") {
     class_name[0].value = "your class";
   }
-  
-  //get values to store in array for results later 
+
+  //get values to store in array for results later
   for (var z = 0; z < q.length; z++) {
 	  for (var w = 0; w < 3; w++) {
-		  
+
 		  if (q[z][w].checked) {
-			  jsarray[z] += q[z][w].value; 
+			  jsarray[z] += q[z][w].value;
 		  }
 	  }
   }
-  
 
-  /*First question is seperate from the rest 
+
+  /*First question is seperate from the rest
   since if this question is false the class fails anyways,
   saves computational power to not check the rest of the answers*/
   if (q[0][0].checked || q[0][2].checked) {
@@ -179,31 +179,31 @@ function isClass() {
     char[0] = false;
   }
 
- //only if q1 isn't false 
+ //only if q1 isn't false
   if (char[0]) {
 
     /*
     *******************************************************************************
-    check the answers for each question and increment 
-    variable points by a weighted amount based on the answer. If variable points is 
+    check the answers for each question and increment
+    variable points by a weighted amount based on the answer. If variable points is
     still a positive value after all answers have been checked and points has been incremented
     or decremented appropriately, then it passes the given characteristic.
     ********************************************************************************
 
     ********************************************************************************
-    some questions have heavy weights if answered no (ex. a no is a -100 decrement to the 
+    some questions have heavy weights if answered no (ex. a no is a -100 decrement to the
     points variable) because they are critical to be yes. The yes increment could be smaller for the same question though (ex. +5) to allow for the characteristic to still fail if corresponding
     questions are both answered no.
     ********************************************************************************
 
     ********************************************************************************
-    N/A answers will either be treated as a negative to the point variable or as a +0 
+    N/A answers will either be treated as a negative to the point variable or as a +0
     depending on the contextual importance of not knowing the answer to a prticular question.
     *********************************************************************************
-    */ 
+    */
 	var i = 0
-	
-	
+
+
     for (i = 1; i <= 3; ++i) { //for q2-4
       if (q[i][0].checked)
         if (i == 1) {       //q2 yes is selected
@@ -213,7 +213,7 @@ function isClass() {
           points += 1;
         }
         else {              //q4 yes is selected
-          points += 1;     
+          points += 1;
         }
       else if (q[i][1].checked)
         if (i == 1) {      //q2 no is selected (CRITICAL)
@@ -223,7 +223,7 @@ function isClass() {
           points -= 3;
         }
         else {             //q4 no is selected
-          points -= 3; 
+          points -= 3;
         }
       else if (q[i][2].checked)
         if (i == 1) {
@@ -239,13 +239,13 @@ function isClass() {
           naCount++;
         }
        //A Question was left unanswered raises a flag, so the program will prompt
-       //the user to fill out any empty q's before it calculates an answer 
-      else { 
+       //the user to fill out any empty q's before it calculates an answer
+      else {
         flag = true;
       }
     }
 
-    //if points is positive it passes the characteristic test 
+    //if points is positive it passes the characteristic test
     if (points >= 0) {
       char[1] = true;
     }
@@ -254,7 +254,7 @@ function isClass() {
     points = 0;
 
     /*******************************************************************************
-      ALL FUTURE CHARACTERISTICS ARE DETERMINED THE SAME WAY SO THEY WILL NOT BE 
+      ALL FUTURE CHARACTERISTICS ARE DETERMINED THE SAME WAY SO THEY WILL NOT BE
       COMMENTED
      *******************************************************************************/
 
@@ -388,7 +388,7 @@ function isClass() {
     if (points >= 0) {
       char[4] = true;
     }
-    
+
 
     for (i = 13; i <= 15; ++i) { //for q14-16
       if (q[i][0].checked)
@@ -466,9 +466,9 @@ function isClass() {
     if (points >= 0) {
       char[6] = true;
     }
-   
-   //compute the results 
-	compute_res(flag, naCount, char, jsarray, class_name); 
+
+   //compute the results
+	compute_res(flag, naCount, char, jsarray, class_name);
   }
 
   //if the first question was left blank we let the user know
@@ -480,184 +480,184 @@ function isClass() {
   else {
     result.textContent = class_name[0].value + " failed because the name was chosen to not be a noun. In order for a class to be valid the name of it must be a noun. Not naming the class a noun is a critical issue/error, and therefore no other attributes were checked. ";
   }
-  
+
   jsarray[24] = result.textContent;
-  
-  //store all results in a session variable and navigate to results page 
-  sessionStorage.setItem("jsarray", JSON.stringify(jsarray)); 
-  window.location.href = 'results.html'; 
+
+  //store all results in a session variable and navigate to results page
+  sessionStorage.setItem("jsarray", JSON.stringify(jsarray));
+  window.location.href = 'results.html';
 
 }
 
-//return to home page 
+//return to home page
 function return_page() {
-	
-	//just send back to home 
+
+	//just send back to home
 	window.location.href = 'index.html';
 }
 
-//load the result answer on the results page 
+//load the result answer on the results page
 function loadres() {
-	
-	//load results from answers on index.html 
-	
-	//get the current results 
-	var jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
-	
+
+	//load results from answers on index.html
+
+	//get the current results
+	var jsarray = JSON.parse(sessionStorage.getItem("jsarray"));
+
 	//load results history
-	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
-	var entries =JSON.parse(sessionStorage.getItem("entries")); 
-	
-	//if there is no history yet, initialize it 
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all"));
+	var entries =JSON.parse(sessionStorage.getItem("entries"));
+
+	//if there is no history yet, initialize it
 	if (allEnters == null) {
-		
-		entries  = 1; 
-		allEnters = []; 
-		allEnters[entries - 1] = jsarray; 
+
+		entries  = 1;
+		allEnters = [];
+		allEnters[entries - 1] = jsarray;
 		sessionStorage.setItem("jsarray_all", JSON.stringify(allEnters));
 		sessionStorage.setItem("entries", entries);
 	}
-	
-	//add to history if it exists 
+
+	//add to history if it exists
 	else {
 		entries += 1
-		allEnters[entries - 1] = jsarray; 
+		allEnters[entries - 1] = jsarray;
 		sessionStorage.setItem("jsarray_all", JSON.stringify(allEnters));
 		sessionStorage.setItem("entries", entries);
 	}
-	
-	//print results to screen 
-	result.textContent = jsarray[24]; 
-	char1.textContent = jsarray[18]; 
-	char2.textContent = jsarray[19]; 
-	char3.textContent = jsarray[20]; 
-	char4.textContent = jsarray[21]; 
-	char5.textContent = jsarray[22]; 
-	char6.textContent = jsarray[23]; 
+
+	//print results to screen
+	result.textContent = jsarray[24];
+	char1.textContent = jsarray[18];
+	char2.textContent = jsarray[19];
+	char3.textContent = jsarray[20];
+	char4.textContent = jsarray[21];
+	char5.textContent = jsarray[22];
+	char6.textContent = jsarray[23];
 }
 
-//load all the results on the result history page 
+//load all the results on the result history page
 function allRes() {
 
-	//get history 
-	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
-	
-	var body = ""; 
-	
+	//get history
+	var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all"));
+
+	var body = "";
+
 	if (allEnters != null)  {
-	
-		//for all the submissions 
+
+		//for all the submissions
 		for (var i = 0; i < allEnters.length; i++) {
-		
-			
-			//form body to show history 
-			body = "<table name='table'><tr><td>Answers for attempt " + String(i + 1) + "</td></tr> "; 
-			
-			//show answers to Q's 
+
+
+			//form body to show history
+			body = "<table name='table' class = 'content-table'><thead><tr><td>Answers for attempt " + String(i + 1) + "</td></tr></thead> "; 
+
+			//show answers to Q's
 			for (var j = 0; j < 18; j++) {
-				
-				
-				body += "<tr><td>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]) + "</td></tr>"; 
+
+
+				body += "<tr><td>" + "Q" + String(j + 1) + ": " + String(allEnters[i][j]) + "</td></tr>";
 			}
-			
-			//print the result text 
-			body += "<tr><td></td></tr><tr><td>Results: </td></tr>"; 
-			
-			body += "<tr><td>" + String(allEnters[i][24]) +"</td></tr>"; 
-			
+
+			//print the result text
+			body += "<tr><td></td></tr><tr><td>Results: </td></tr>";
+
+			body += "<tr><td>" + String(allEnters[i][24]) +"</td></tr>";
+
 			for (var k = 18; k < 24; ++k) {
 				if (String(allEnters[i][k]) != "null" && String(allEnters[i][k]) != "") {
-					body +="<tr><td>" + String(allEnters[i][k])+"</td></tr>"; 
+					body +="<tr><td>" + String(allEnters[i][k])+"</td></tr>";
 				}
 			}
-			
-				//add option to send this result from the history to email 
-				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
-				
-				//display on HTML 
-				document.body.innerHTML = document.body.innerHTML + body; 
-			
-		
+
+				//add option to send this result from the history to email
+				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>";
+
+				//display on HTML
+				document.body.innerHTML = document.body.innerHTML + body;
+
+
 		}
 	}
 	else {
-	
-		//form body to show history 
+
+		//form body to show history
 		body = "<h1> No Results</h1>";
-		//display on HTML 
-		document.body.innerHTML = document.body.innerHTML + body; 
-	
+		//display on HTML
+		document.body.innerHTML = document.body.innerHTML + body;
+
 	}
-	
+
 }
 
-//send email of results 
+//send email of results
 function email(index) {
-	var jsarray = ''; 
+	var jsarray = '';
 
-	//value if it is sending only current result from result page 
+	//value if it is sending only current result from result page
 	if (index == -1) {
-		//get our current result from the session variable 
-		jsarray = JSON.parse(sessionStorage.getItem("jsarray")); 
-		
-		
-		//make sure the page is still set okay 
-		char1.textContent = jsarray[18]; 
-		char2.textContent = jsarray[19]; 
-		char3.textContent = jsarray[20]; 
-		char4.textContent = jsarray[21]; 
-		char5.textContent = jsarray[22]; 
-		char6.textContent = jsarray[23]; 
-		result.textContent = jsarray[24]; 
+		//get our current result from the session variable
+		jsarray = JSON.parse(sessionStorage.getItem("jsarray"));
+
+
+		//make sure the page is still set okay
+		char1.textContent = jsarray[18];
+		char2.textContent = jsarray[19];
+		char3.textContent = jsarray[20];
+		char4.textContent = jsarray[21];
+		char5.textContent = jsarray[22];
+		char6.textContent = jsarray[23];
+		result.textContent = jsarray[24];
 	}
 	else {
-		//get history 
-		var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all")); 
+		//get history
+		var allEnters = JSON.parse(sessionStorage.getItem("jsarray_all"));
 
-		//get the submission the user chose to email 
-		jsarray = allEnters[index]; 
+		//get the submission the user chose to email
+		jsarray = allEnters[index];
 	}
-	
-	//start email body 
-	var body = 'Answers: '; 
-	
+
+	//start email body
+	var body = 'Answers: ';
+
 	//get the answers to the Qs
 	for (var i = 0; i < 18; i++) {
-		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]); 
+		body += "<br><br>" + "Q" + String(i + 1) + ": " + String(jsarray[i]);
 	}
-	
-	
-	//print the result text and eplanation 
-	body += "<br><br>Results: "; 
-	body +="<br>" + String(jsarray[24]); 
-	
-	
-	
+
+
+	//print the result text and eplanation
+	body += "<br><br>Results: ";
+	body +="<br>" + String(jsarray[24]);
+
+
+
 		if (String(jsarray[18]) != "") {
-			body +="<br>" + String(jsarray[18]); 
+			body +="<br>" + String(jsarray[18]);
 		}
 		if (String(jsarray[19]) != "") {
-			body +="<br>" + String(jsarray[19]); 
+			body +="<br>" + String(jsarray[19]);
 		}
 		if (String(jsarray[20]) != "") {
-			body +="<br>" + String(jsarray[20]); 
+			body +="<br>" + String(jsarray[20]);
 		}
 		if (String(jsarray[21]) != "") {
-			body +="<br>" + String(jsarray[21]); 
+			body +="<br>" + String(jsarray[21]);
 		}
 		if (String(jsarray[22]) != "") {
-			body +="<br>" + String(jsarray[22]); 
+			body +="<br>" + String(jsarray[22]);
 		}
 		if (String(jsarray[23]) != "") {
-			body +="<br>" + String(jsarray[23]); 
+			body +="<br>" + String(jsarray[23]);
 		}
-	
-	
+
+
 	//get name of the email
 	var email_name = document.getElementsByName('email');
 
-	
-	//send email and response 
+
+	//send email and response
 	Email.send({
 		Host : "smtp.gmail.com",
 		Username : "tinytoolcis@gmail.com",
@@ -669,5 +669,5 @@ function email(index) {
     }).then(
       message => alert(message)
     );
-	
+
 }
