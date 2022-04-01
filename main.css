@@ -13,7 +13,7 @@ body {
     padding: 2em 2em 4em;
 }
 h1 {
-    color:antiquewhite    
+    color:antiquewhite
 }
 h2 {
     color:antiquewhite;
@@ -26,16 +26,53 @@ h3 {
     font-weight: 300;
     font-size:12px;
 }
-table, th, td {
-  border: 1px solid gray;
-  background: #F0F0F0;
+.content-table {
+  border-collapse: collapse;
+  margin: auto;
+  font-size: 0.9em;
+  width:110%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-th {
-text-align: left;
+
+.content-table thead tr {
+  background-color: black;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.helpful-info tr{
+    width:100%;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 0px 0px 12px;
+  text-align: left;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  background-color: #f3f3f3;
+  color: black;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #d4d6d9;
+  color: black;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid black;
 }
 .tooltip {
-  position: relative;
+  position: absolute;
   display: inline-block;
+  margin-top: -0.8rem;
 }
 
 .tooltip .infotiptext {
