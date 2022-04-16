@@ -549,10 +549,10 @@ function allRes() {
 		for (var i = 0; i < allEnters.length; i++) {
 		
 			
-			//form body to show history 
-			body = "<table name='table'><tr><td>Answers for attempt " + String(i + 1) + "</td></tr> "; 
-			
-			//show answers to Q's 
+			//form body to show history
+			body = "<table name='table' class = 'content-table'><thead><tr><td>Answers for attempt " + String(i + 1) + "</td></tr></thead> "; 
+
+			//show answers to Q's
 			for (var j = 0; j < 18; j++) {
 				
 				
@@ -570,10 +570,10 @@ function allRes() {
 				}
 			}
 			
-				//add option to send this result from the history to email 
-				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 90px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>"; 
-				
-				//display on HTML 
+				//add option to send this result from the history to email
+				body +="</table><br><form style='color:antiquewhite'>Input your Email:<input style='margin-left: 20px' type='text' name= 'email'></form><br><button type='button' value = '" + String(i) + "' style='color:black' onclick='email(this.value)'>Email Results</button><br><br><br>";
+
+				//display on HTML
 				document.body.innerHTML = document.body.innerHTML + body; 
 			
 		
